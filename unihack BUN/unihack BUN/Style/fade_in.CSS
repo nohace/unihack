@@ -1,0 +1,12 @@
+#logo{
+    opacity:0;
+}
+
+#text{
+    opacity:0;
+}
+
+#box {
+    opacity: 0; /* Initially hidden */
+    transition: opacity 1s ease; /* Add a smooth transition effect */
+}

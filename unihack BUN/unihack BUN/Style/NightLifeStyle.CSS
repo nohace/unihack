@@ -1,0 +1,55 @@
+.preference_buttons{
+    display: inline-block;
+    padding: 10px 20px;
+    margin-right: 4px;
+    background-color: rgb(146, 89, 39); /* Button background color */
+    color: #ffffff; /* Button text color */
+    text-decoration: none; /* Remove underline */
+    border: none; /* Remove border */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Cursor style on hover */
+  }
+
+  .preference_buttons:hover{
+    display: inline-block;
+    padding: 10px 20px;
+    margin-right: 4px;
+    background-color: rgb(117, 74, 74); /* Button background color */
+    color: rgb(255, 255, 255); /* Button text color */
+    text-decoration: none; /* Remove underline */
+    border: none; /* Remove border */
+    border-radius: none; /* Rounded corners */
+    cursor: pointer; /* Cursor style on hover */
+    transition: background-color 0.3s ease; /* Smooth transition on hover */
+  }
+
+  #contactButton{
+    display: inline-block;
+    padding: 10px 20px;
+    margin-right: 4px;
+    background-color: rgb(78, 36, 36); /* Button background color */
+    color: #ffffff; /* Button text color */
+    text-decoration: none; /* Remove underline */
+    border: none; /* Remove border */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Cursor style on hover */
+    transition: background-color 0.3s ease; /* Smooth transition on hover */
+  }
+  
+  #contactButton:hover{
+    display: inline-block;
+    padding: 10px 20px;
+    margin-right: 4px;
+    background-color: rgb(117, 74, 74); /* Button background color */
+    color: #ffffff; /* Button text color */
+    text-decoration: none; /* Remove underline */
+    border: none; /* Remove border */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Cursor style on hover */
+  }
+  
+  #nightlifeStyle{
+  background-color: grey;
+  pointer-events: none;
+  }
+ 

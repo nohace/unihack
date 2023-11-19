@@ -1,0 +1,90 @@
+.aspect-ratio-container {
+    position: relative;
+    width: 100%;
+    /* Set the desired aspect ratio here */
+    padding-top: 56.25%; /* 16:9 aspect ratio (9 / 16 * 100%) */
+    overflow: hidden;
+}
+.aspect-ratio-container img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* This property ensures the image covers the entire container */
+}
+
+body {
+    
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color:#000000;
+    margin: 20px;
+    background-color: #f7e8ad; /* Light yellow background */
+}
+
+header {
+    text-align: center;
+    color:#352c06;
+    padding: 20px;
+    background-color: #e6aa16; /* Gold header background */
+    
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+    
+    background-color:#000000;  /* Black navigation background */
+    padding: 10px;
+}
+
+nav a {
+    color: #ffffff; /* Gold navigation text */
+    text-decoration: none;
+    padding: 10px;
+    margin: 0 10px;
+}
+
+section {
+    padding: 20px;
+    text-align: center; /* Center the content */
+    background-color:#f7e8ad ; /* White content background */
+    
+    margin-top: 20px;
+}
+
+
+
+footer {
+    text-align: center;
+    padding: 10px;
+    color:#ffd700;
+    background-color: #000000; /* Gold footer background */
+    margin-top: 20px;
+}
+
+
+.container {
+    position: relative;
+    max-width: 100%;
+    height: 100vh;
+  }
+
+.custom-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #e6aa16; /* Gray color */
+    color: #000000; /* Text color */
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease; /* Smooth transition on hover */
+    text-decoration: none;
+}
+
+.custom-button:hover {
+    background-color: #606060; /* Slightly darker gray color on hover */
+}
+
+
+
+
+

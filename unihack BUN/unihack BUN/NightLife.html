@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="fade_in.js"></script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bee Connected</title>
+    <link rel="stylesheet" href="Style/style.night.CSS">
+    <link rel="stylesheet" href="Style/NightLifeStyle.CSS">
+    <link rel="stylesheet" href="Style/fade_in.CSS">
+
+    <style>
+        #map {
+            height: 100%;
+      }
+    </style>
+</head>
+
+<body>
+
+    <header>
+      <a href="Index.HTML">
+        <img src="PNGs/logodone.png" id="logo" style="float:center;width:470px;height: 100px;" >
+      </a>
+    </header>
+
+    <nav>
+       
+      <a href="Contact.html" id="contactButton">Contact us</a>
+    </nav>
+
+    <section>
+
+      <h2 id="text">Select your preferred track</h2>
+      <a class="preference_buttons" href="Cultural.html">Cultural</a>
+      <a class="preference_buttons" href="Fun.html">Fun</a>
+      <a class="preference_buttons" id="nightlifeStyle" href="NightLife.html">Night Life</a>
+  
+  </section>
+
+<section>
+    <div class="container">
+        <div id="map"></div>
+    </div>
+    
+</section>
+    <footer>
+        <p>&copy; 2023 Bee Connected. All rights reserved.</p>
+    </footer>
+
+    
+</body>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDZncOmEczOQkx0fwoT65wNHUxgiBJIqp8&libraries=places&callback=initMap" async defer></script>
+<script>
+
+function initMap() {
+    const pinsPOIs = [, 
+        { lat: 45.7501175, lng: 21.2390094, title: "Shaorma", icon: "/PNGs/yellowpinsmall.png", imageUrl: "PNGs/sutalasuta.png"},
+
+        { lat: 45.7583275, lng: 21.2261825, title: "Aethernativ", icon: "/PNGs/yellowpinsmall.png", imageUrl: "PNGs/AethericPopUp.png" }, 
+
+        { lat:45.7502803, lng: 21.2434823, title: "Like Pub", icon: "/PNGs/yellowpinsmall.png", imageUrl: "PNGs/LikePubPopUp.png" },
+        { lat:45.7486266, lng: 21.2223166, title: "Manufactura", icon: "/PNGs/yellowpinsmall.png", imageUrl: "PNGs/ManufacturaPopUp.png" },
+
+
+        { lat: 45.7406305, lng: 21.2392903, title: "The 80’s Pub", icon: "/PNGs/yellowpinsmall.png", imageUrl: "PNGs/80'sPopUp.png" },
+        { lat: 45.7582471, lng: 21.2281931 ,title: "D’arc", icon: "/PNGs/yellowpinsmall.png", imageUrl: "PNGs/D'arcPopUp.png" },
+
+
+         
+    ];
+
+
+    const myLatLng = { lat: 45.766092, lng: 21.2220572 };
+    const map = new google.maps.Map(document.getElementById("map"), {
+        zoom: 13,
+        center: myLatLng,
+        scrollwheel: false
+    });
+
+    const overlay = new google.maps.OverlayView();
+overlay.onAdd = function() {
+    // Add the popup to the overlay
+    this.getPanes().floatPane.appendChild(popup);
+};
+overlay.draw = function() {
+    // Positioning code will go here, but we'll define it in the mouseover listener
+};
+overlay.setMap(map);
+    
+    const popup = document.createElement('div');
+    popup.style.display = 'none'; // Start hidden
+    popup.style.position = 'absolute';
+    popup.style.zIndex = '1000';
+    document.body.appendChild(popup);
+
+    popup.style.pointerEvents = "none";
+
+    pinsPOIs.forEach(poi => {
+    const pinPosition = new google.maps.LatLng(poi.lat, poi.lng);
+    const marker = new google.maps.Marker({
+        position: pinPosition,
+        map: map,
+        title: poi.title,
+        icon: poi.icon,
+    });
+
+
+    marker.addListener('mouseover', () => {
+        const img = document.createElement('img');
+        img.src = poi.imageUrl;
+        img.alt = poi.title;
+        img.style.width = '550px'; // Use a fixed width
+        img.style.height = 'auto';
+        popup.innerHTML = ''; // Clear previous content
+        popup.appendChild(img);
+        popup.style.display = 'block'; // Display the popup
+
+        // Use the overlay's projection to calculate the correct position
+        const projection = overlay.getProjection();
+        const pixelPosition = projection.fromLatLngToDivPixel(marker.getPosition());
+
+        // Center the popup over the marker
+        popup.style.left = (pixelPosition.x - popup.offsetWidth / 2) + 'px';
+        popup.style.top = (pixelPosition.y - popup.offsetHeight) + 'px';
+    });
+
+    marker.addListener('mouseout', () => {
+        // Hide the popup after a short delay (e.g., 500 milliseconds)
+
+        popupTimer = setTimeout(() => {
+            popup.style.display = 'none';
+        }, 500);
+    });
+
+    // If the mouse re-enters the marker area, cancel the hide timer
+    marker.addListener('mouseover', () => {
+        clearTimeout(popupTimer);
+    });
+});
+    const styleControl = document.getElementById("style-selector-control");
+
+    map.controls[google.maps.ControlPosition.TOP_LEFT].push(styleControl);
+
+    const styleSelector = document.getElementById("style-selector");
+
+    map.setOptions({ styles: [
+    { elementType: "geometry", stylers: [{ color: "#242f3e" }] },
+    { elementType: "labels.text.stroke", stylers: [{ color: "#242f3e" }] },
+    { elementType: "labels.text.fill", stylers: [{ color: "#746855" }] },
+    {
+      featureType: "administrative.locality",
+      elementType: "labels.text.fill",
+      stylers: [{ color: "#d59563" }],
+    },
+    {
+      featureType: "poi",
+      elementType: "labels.text.fill",
+      stylers: [{ color: "#d59563" }],
+    },
+    {
+      featureType: "poi.park",
+      elementType: "geometry",
+      stylers: [{ color: "#263c3f" }],
+    },
+    {
+      featureType: "poi.park",
+      elementType: "labels.text.fill",
+      stylers: [{ color: "#6b9a76" }],
+    },
+    {
+      featureType: "road",
+      elementType: "geometry",
+      stylers: [{ color: "#38414e" }],
+    },
+    {
+      featureType: "road",
+      elementType: "geometry.stroke",
+      stylers: [{ color: "#212a37" }],
+    },
+    {
+      featureType: "road",
+      elementType: "labels.text.fill",
+      stylers: [{ color: "#9ca5b3" }],
+    },
+    {
+      featureType: "road.highway",
+      elementType: "geometry",
+      stylers: [{ color: "#746855" }],
+    },
+    {
+      featureType: "road.highway",
+      elementType: "geometry.stroke",
+      stylers: [{ color: "#1f2835" }],
+    },
+    {
+      featureType: "road.highway",
+      elementType: "labels.text.fill",
+      stylers: [{ color: "#f3d19c" }],
+    },
+    {
+      featureType: "transit",
+      elementType: "geometry",
+      stylers: [{ color: "#2f3948" }],
+    },
+    {
+      featureType: "transit.station",
+      elementType: "labels.text.fill",
+      stylers: [{ color: "#d59563" }],
+    },
+    {
+      featureType: "water",
+      elementType: "geometry",
+      stylers: [{ color: "#17263c" }],
+    },
+    {
+      featureType: "water",
+      elementType: "labels.text.fill",
+      stylers: [{ color: "#515c6d" }],
+    },
+    {
+      featureType: "water",
+      elementType: "labels.text.stroke",
+      stylers: [{ color: "#17263c" }],
+    },
+    {
+      featureType: "poi",
+      stylers: [{ visibility: "off" }],
+    },
+    {
+      featureType: "transit",
+      elementType: "labels.icon",
+      stylers: [{ visibility: "off" }],
+    }
+  ] });
+}
+
+function fromLatLngToPoint(latLng, map) {
+    const topRight = map.getProjection().fromLatLngToPoint(map.getBounds().getNorthEast());
+    const bottomLeft = map.getProjection().fromLatLngToPoint(map.getBounds().getSouthWest());
+    const scale = Math.pow(2, map.getZoom());
+    const worldPoint = map.getProjection().fromLatLngToPoint(latLng);
+    return new google.maps.Point((worldPoint.x - bottomLeft.x) * scale, (worldPoint.y - topRight.y) * scale);
+}
+
+window.initMap = initMap;
+</script>
+</html>

@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="fade_in.js"></script>
+
+    <meta charmyLet="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bee Connected</title>
+    <link rel="stylesheet" href="Style/Style.CSS">
+    <link rel="stylesheet" href="Style/fade_in.CSS">
+    <style>
+        #map {
+            height: 100%;
+      }
+    </style>
+</head>
+
+<body>
+
+    <header>
+      <img src="PNGs/logodone.png" id="logo" style="float:center;width:470px;height: 100px;" >
+    </header>
+
+    <nav>
+       
+        <a href="Cultural.html" class="custom-button">Need inspiration?</a>
+        <a href="Contact.html" class="custom-button">Contact us</a>
+    </nav>
+
+    <section>
+        <h2>Explore Timișoara</h2>
+        <p>Let our bees help you</p>
+        <a href="Night.html"><img src="PNGs/moonbutton.png" style="float:right;width:42px;height:42px;" ></a>
+    </section>
+    
+<section>
+    <div class="container">
+        <div id="map"></div>
+    </div>
+    
+</section>
+    <footer>
+        <p>&copy; 2023 Bee Connected. All rights reserved.</p>
+    </footer>
+
+</body>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDZncOmEczOQkx0fwoT65wNHUxgiBJIqp8&libraries=places&callback=initMap" async defer></script>
+<script>
+
+function initMap() {
+const pinsPOIs = [
+  // Markers for Points of Interest
+{ lat: 45.7511933, lng: 21.2244686, title: "The Orthodox Cathedral", icon: "/PNGs/blackpinsmall.png", imageUrl: "/PNGs/CatedralaPopUp.png"},
+{ lat: 45.7540329, lng: 21.2257926, title: "The Romanian National Opera", icon: "/PNGs/blackpinsmall.png", imageUrl: "PNGs/OperaPopUp.png"}, 
+{ lat: 45.7568707, lng: 21.2338377, title: "Theresia Bastion", icon: "/PNGs/blackpinsmall.png", imageUrl: "PNGs/BastionPopUp.png" }, 
+{ lat:45.7404604, lng: 21.2440338, title: "Dan Paltinisanu Stadium", icon: "/PNGs/blackpinsmall.png", imageUrl: "PNGs/StadionPopUp.png" }, 
+{ lat:45.7507833,lng: 21.2327066, title: "Roses Park", icon: "/PNGs/blackpinsmall.png", imageUrl: "PNGs/RosesParkPopUp.png" }, 
+{ lat:45.743198, lng: 21.224217, title: "The Museum of the Communist Consumer", icon: "/PNGs/blackpinsmall.png", imageUrl: "PNGs/CommunistMuseumPopUp.png" }, 
+{ lat: 45.7574221,lng: 21.2298894,title: "The Art Museum", icon: "/PNGs/blackpinsmall.png", imageUrl: "PNGs/ArtMuseumPopUp.png" }, 
+{ lat: 45.7771326, lng: 21.2661333,  title: "The Banat Village Museum", icon: "/PNGs/blackpinsmall.png", imageUrl: "PNGs/BanatVillageMuseumPopUp.png" }, 
+{ lat: 45.7241228, lng: 21.2006025, title: "Shopping City", icon: "/PNGs/blackpinsmall.png", imageUrl: "PNGs/ShoppingCityPopUp.png" }, 
+{ lat: 45.7656694, lng: 21.2273332,title: "Iulius Town", icon: "/PNGs/blackpinsmall.png", imageUrl: "PNGs/IuliusTownPopUp.png" }, 
+{ lat: 45.7380013,lng: 21.2163958, title: "Exit Games", icon: "/PNGs/blackpinsmall.png", imageUrl: "PNGs/ExitGamesPopUp.png" }, 
+{ lat: 45.7769137, lng: 21.2209083, title: "RocketSpin", icon: "/PNGs/blackpinsmall.png", imageUrl: "PNGs/RocketSpinPopup.png" }, 
+{lat: 45.771249,lng: 21.2543113,  title: "Amazonia Aquapark", icon: "/PNGs/blackpinsmall.png", imageUrl: "PNGs/AmazoniaPopUp.png" }, 
+{lat: 45.7376514, lng: 21.2097392, title: "OneMove Climbing Gym", icon: "/PNGs/blackpinsmall.png", imageUrl: "PNGs/OneMoveGymPopUp.png" }, 
+{lat: 45.7631734, lng: 21.2102563, title: "Unlock Games", icon: "/PNGs/blackpinsmall.png", imageUrl: "PNGs/UnlockGamesPopUp.png" },
+{lat: 45.7631734, lng: 21.2102563, icon: "/PNGs/blackpinsmall.png", imageUrl: "PNGs/UnlockGamesPopUp.png" },
+{lat: 45.751368, lng: 21.223727  ,  icon: "/PNGs/33.png" }, 
+{lat: 45.722357, lng: 21.201743  ,  icon: "/PNGs/33.png" }, 
+{lat: 45.758871, lng: 21.233999 ,  icon: "/PNGs/a46.png" }, 
+{lat: 45.777337, lng: 21.265887 ,  icon: "/PNGs/a46.png" }, 
+{lat: 45.731160, lng: 21.247820 ,  icon: "/PNGs/e2.png" },
+{lat: 45.783372, lng: 21.219555 ,  icon: "/PNGs/e2.png" }
+
+
+];
+
+const dotMarkers = [
+  // Route 46
+{ lat: 45.777144, lng: 21.266027, icon: "/PNGs/dot1.png" },
+{ lat: 45.776865, lng: 21.265527, icon: "/PNGs/dot1.png" },
+{ lat: 45.776710, lng: 21.265203, icon: "/PNGs/dot1.png" },
+{ lat: 45.776519, lng: 21.264825, icon: "/PNGs/dot1.png" },
+{ lat: 45.776312, lng: 21.264442, icon: "/PNGs/dot1.png" },
+{ lat: 45.776089, lng: 21.263985, icon: "/PNGs/dot1.png" },
+{ lat: 45.775866, lng: 21.263528, icon: "/PNGs/dot1.png" },
+{ lat: 45.775593, lng: 21.262993, icon: "/PNGs/dot1.png" },
+{ lat: 45.775397, lng: 21.262599, icon: "/PNGs/dot1.png" },
+{ lat: 45.775160, lng: 21.262131, icon: "/PNGs/dot1.png" },
+{ lat: 45.774913, lng: 21.261646, icon: "/PNGs/dot1.png" },
+{ lat: 45.774651, lng: 21.261119, icon: "/PNGs/dot1.png" },
+{ lat: 45.774458, lng: 21.260721, icon: "/PNGs/dot1.png" },
+{ lat: 45.774267, lng: 21.260346, icon: "/PNGs/dot1.png" },
+{ lat: 45.774060, lng: 21.259936, icon: "/PNGs/dot1.png" },
+{ lat: 45.773853, lng: 21.259530, icon: "/PNGs/dot1.png" },
+{ lat: 45.773554, lng: 21.258937, icon: "/PNGs/dot1.png" },
+{ lat: 45.773330, lng: 21.258480, icon: "/PNGs/dot1.png" },
+{ lat: 45.773099, lng: 21.258027, icon: "/PNGs/dot1.png" },
+{ lat: 45.772848, lng: 21.257516, icon: "/PNGs/dot1.png" },
+{ lat: 45.772611, lng: 21.257047, icon: "/PNGs/dot1.png" },
+{ lat: 45.772347, lng: 21.256532, icon: "/PNGs/dot1.png" },
+{ lat: 45.771999, lng: 21.255809, icon: "/PNGs/dot1.png" },
+{ lat: 45.771710, lng: 21.255259, icon: "/PNGs/dot1.png" },
+{ lat: 45.771419, lng: 21.254677, icon: "/PNGs/dot1.png" },
+{ lat: 45.771206, lng: 21.254232, icon: "/PNGs/dot1.png" },
+{ lat: 45.770920, lng: 21.253709, icon: "/PNGs/dot1.png" },
+{ lat: 45.770645, lng: 21.253135, icon: "/PNGs/dot1.png" },
+{ lat: 45.770384, lng: 21.252623, icon: "/PNGs/dot1.png" },
+{ lat: 45.770188, lng: 21.252237, icon: "/PNGs/dot1.png" },
+{ lat: 45.769893, lng: 21.251663, icon: "/PNGs/dot1.png" },
+{ lat: 45.769621, lng: 21.251155, icon: "/PNGs/dot1.png" },
+{ lat: 45.769365, lng: 21.250632, icon: "/PNGs/dot1.png" },
+{ lat: 45.769104, lng: 21.250129, icon: "/PNGs/dot1.png" },
+{ lat: 45.768834, lng: 21.249582, icon: "/PNGs/dot1.png" },
+{ lat: 45.768583, lng: 21.249117, icon: "/PNGs/dot1.png" },
+{ lat: 45.768382, lng: 21.248711, icon: "/PNGs/dot1.png" },
+{ lat: 45.768188, lng: 21.248344, icon: "/PNGs/dot1.png" },
+{ lat: 45.768001, lng: 21.247954, icon: "/PNGs/dot1.png" },
+{ lat: 45.767785, lng: 21.247528, icon: "/PNGs/dot1.png" },
+{ lat: 45.767578, lng: 21.247146, icon: "/PNGs/dot1.png" },
+{ lat: 45.767391, lng: 21.246782, icon: "/PNGs/dot1.png" },
+{ lat: 45.767167, lng: 21.246318, icon: "/PNGs/dot1.png" },
+{ lat: 45.766908, lng: 21.245834, icon: "/PNGs/dot1.png" },
+{ lat: 45.766677, lng: 21.245346, icon: "/PNGs/dot1.png" },
+{ lat: 45.766431, lng: 21.244894, icon: "/PNGs/dot1.png" },
+{ lat: 45.766284, lng: 21.244603, icon: "/PNGs/dot1.png" },
+{ lat: 45.766048, lng: 21.244797, icon: "/PNGs/dot1.png" },
+{ lat: 45.765870, lng: 21.244974, icon: "/PNGs/dot1.png" },
+{ lat: 45.765707, lng: 21.245132, icon: "/PNGs/dot1.png" },
+{ lat: 45.765547, lng: 21.245294, icon: "/PNGs/dot1.png" },
+{ lat: 45.765365, lng: 21.245486, icon: "/PNGs/dot1.png" },
+{ lat: 45.765160, lng: 21.245672, icon: "/PNGs/dot1.png" },
+{ lat: 45.764963, lng: 21.245868, icon: "/PNGs/dot1.png" },
+{ lat: 45.764756, lng: 21.246078, icon: "/PNGs/dot1.png" },
+{ lat: 45.764516, lng: 21.246306, icon: "/PNGs/dot1.png" },
+{ lat: 45.764291, lng: 21.246522, icon: "/PNGs/dot1.png" },
+{ lat: 45.764152, lng: 21.246664, icon: "/PNGs/dot1.png" },
+{ lat: 45.763945, lng: 21.246868, icon: "/PNGs/dot1.png" },
+{ lat: 45.763772, lng: 21.247000, icon: "/PNGs/dot1.png" },
+{ lat: 45.763579, lng: 21.247089, icon: "/PNGs/dot1.png" },
+{ lat: 45.763303, lng: 21.247210, icon: "/PNGs/dot1.png" },
+{ lat: 45.763068, lng: 21.247282, icon: "/PNGs/dot1.png" },
+{ lat: 45.762830, lng: 21.247394, icon: "/PNGs/dot1.png" },
+{ lat: 45.762643, lng: 21.247498, icon: "/PNGs/dot1.png" },
+{ lat: 45.762559, lng: 21.247147, icon: "/PNGs/dot1.png" },
+{ lat: 45.762468, lng: 21.246809, icon: "/PNGs/dot1.png" },
+{ lat: 45.762358, lng: 21.246391, icon: "/PNGs/dot1.png" },
+{ lat: 45.762267, lng: 21.245988, icon: "/PNGs/dot1.png" },
+{ lat: 45.762177, lng: 21.245639, icon: "/PNGs/dot1.png" },
+{ lat: 45.762050, lng: 21.245273, icon: "/PNGs/dot1.png" },
+{ lat: 45.761917, lng: 21.244892, icon: "/PNGs/dot1.png" },
+{ lat: 45.761772, lng: 21.244462, icon: "/PNGs/dot1.png" },
+{ lat: 45.761664, lng: 21.244145, icon: "/PNGs/dot1.png" },
+{ lat: 45.761507, lng: 21.243696, icon: "/PNGs/dot1.png" },
+{ lat: 45.761354, lng: 21.243254, icon: "/PNGs/dot1.png" },
+{ lat: 45.761248, lng: 21.242969, icon: "/PNGs/dot1.png" },
+{ lat: 45.761121, lng: 21.242551, icon: "/PNGs/dot1.png" },
+{ lat: 45.761002, lng: 21.242228, icon: "/PNGs/dot1.png" },
+{ lat: 45.760861, lng: 21.241819, icon: "/PNGs/dot1.png" },
+{ lat: 45.760737, lng: 21.241441, icon: "/PNGs/dot1.png" },
+{ lat: 45.760606, lng: 21.241089, icon: "/PNGs/dot1.png" },
+{ lat: 45.760449, lng: 21.240648, icon: "/PNGs/dot1.png" },
+{ lat: 45.760310, lng: 21.240227, icon: "/PNGs/dot1.png" },
+{ lat: 45.760196, lng: 21.239919, icon: "/PNGs/dot1.png" },
+{ lat: 45.760063, lng: 21.239509, icon: "/PNGs/dot1.png" },
+{ lat: 45.759910, lng: 21.239051, icon: "/PNGs/dot1.png" },
+{ lat: 45.759765, lng: 21.238642, icon: "/PNGs/dot1.png" },
+{ lat: 45.759644, lng: 21.238264, icon: "/PNGs/dot1.png" },
+{ lat: 45.759498, lng: 21.237852, icon: "/PNGs/dot1.png" },
+{ lat: 45.759339, lng: 21.237416, icon: "/PNGs/dot1.png" },
+{ lat: 45.759208, lng: 21.237024, icon: "/PNGs/dot1.png" },
+{ lat: 45.759075, lng: 21.236632, icon: "/PNGs/dot1.png" },
+{ lat: 45.758946, lng: 21.236214, icon: "/PNGs/dot1.png" },
+{ lat: 45.758789, lng: 21.235786, icon: "/PNGs/dot1.png" },
+{ lat: 45.758705, lng: 21.235537, icon: "/PNGs/dot1.png" },
+{ lat: 45.758615, lng: 21.235273, icon: "/PNGs/dot1.png" },
+{ lat: 45.758527, lng: 21.235017, icon: "/PNGs/dot1.png" },
+{ lat: 45.758433, lng: 21.234739, icon: "/PNGs/dot1.png" },
+{ lat: 45.758342, lng: 21.234480, icon: "/PNGs/dot1.png" },
+{ lat: 45.758267, lng: 21.234268, icon: "/PNGs/dot1.png" },
+// Route 33
+{ lat: 45.722617, lng: 21.200651, icon: "/PNGs/dot2.png" },
+{ lat: 45.722771, lng: 21.200780, icon: "/PNGs/dot2.png" },
+{ lat: 45.722945, lng: 21.200913, icon: "/PNGs/dot2.png" },
+{ lat: 45.723182, lng: 21.201107, icon: "/PNGs/dot2.png" },
+{ lat: 45.723406, lng: 21.201272, icon: "/PNGs/dot2.png" },
+{ lat: 45.723581, lng: 21.201425, icon: "/PNGs/dot2.png" },
+{ lat: 45.723768, lng: 21.201585, icon: "/PNGs/dot2.png" },
+{ lat: 45.723965, lng: 21.201750, icon: "/PNGs/dot2.png" },
+{ lat: 45.724187, lng: 21.201946, icon: "/PNGs/dot2.png" },
+{ lat: 45.724385, lng: 21.202102, icon: "/PNGs/dot2.png" },
+{ lat: 45.724566, lng: 21.202248, icon: "/PNGs/dot2.png" },
+{ lat: 45.724794, lng: 21.202436, icon: "/PNGs/dot2.png" },
+{ lat: 45.724794, lng: 21.202430, icon: "/PNGs/dot2.png" },
+{ lat: 45.725006, lng: 21.202613, icon: "/PNGs/dot2.png" },
+{ lat: 45.725203, lng: 21.202750, icon: "/PNGs/dot2.png" },
+{ lat: 45.725440, lng: 21.202860, icon: "/PNGs/dot2.png" },
+{ lat: 45.725624, lng: 21.203088, icon: "/PNGs/dot2.png" },
+{ lat: 45.725884, lng: 21.203251, icon: "/PNGs/dot2.png" },
+{ lat: 45.726109, lng: 21.203399, icon: "/PNGs/dot2.png" },
+{ lat: 45.726277, lng: 21.203492, icon: "/PNGs/dot2.png" },
+{ lat: 45.726485, lng: 21.203669, icon: "/PNGs/dot2.png" },
+{ lat: 45.726665, lng: 21.203817, icon: "/PNGs/dot2.png" },
+{ lat: 45.726869, lng: 21.203977, icon: "/PNGs/dot2.png" },
+{ lat: 45.727058, lng: 21.204144, icon: "/PNGs/dot2.png" },
+{ lat: 45.727267, lng: 21.204340, icon: "/PNGs/dot2.png" },
+{ lat: 45.727438, lng: 21.204538, icon: "/PNGs/dot2.png" },
+{ lat: 45.727620, lng: 21.204761, icon: "/PNGs/dot2.png" },
+{ lat: 45.727829, lng: 21.205013, icon: "/PNGs/dot2.png" },
+{ lat: 45.728009, lng: 21.205241, icon: "/PNGs/dot2.png" },
+{ lat: 45.728198, lng: 21.205447, icon: "/PNGs/dot2.png" },
+{ lat: 45.728398, lng: 21.205616, icon: "/PNGs/dot2.png" },
+{ lat: 45.728593, lng: 21.205793, icon: "/PNGs/dot2.png" },
+{ lat: 45.728782, lng: 21.205954, icon: "/PNGs/dot2.png" },
+{ lat: 45.728977, lng: 21.206107, icon: "/PNGs/dot2.png" },
+{ lat: 45.729162, lng: 21.206257, icon: "/PNGs/dot2.png" },
+{ lat: 45.729484, lng: 21.206534, icon: "/PNGs/dot2.png" },
+{ lat: 45.729677, lng: 21.206684, icon: "/PNGs/dot2.png" },
+{ lat: 45.729876, lng: 21.206842, icon: "/PNGs/dot2.png" },
+{ lat: 45.730085, lng: 21.207000, icon: "/PNGs/dot2.png" },
+{ lat: 45.730644, lng: 21.207442, icon: "/PNGs/dot2.png" },
+{ lat: 45.730569, lng: 21.207388, icon: "/PNGs/dot2.png" },
+{ lat: 45.730455, lng: 21.207289, icon: "/PNGs/dot2.png" },
+{ lat: 45.731009, lng: 21.207744, icon: "/PNGs/dot2.png" },
+{ lat: 45.731239, lng: 21.207911, icon: "/PNGs/dot2.png" },
+{ lat: 45.731481, lng: 21.208107, icon: "/PNGs/dot2.png" },
+{ lat: 45.731685, lng: 21.208288, icon: "/PNGs/dot2.png" },
+{ lat: 45.731899, lng: 21.208445, icon: "/PNGs/dot2.png" },
+{ lat: 45.732112, lng: 21.208590, icon: "/PNGs/dot2.png" },
+{ lat: 45.732290, lng: 21.208685, icon: "/PNGs/dot2.png" },
+{ lat: 45.732504, lng: 21.208768, icon: "/PNGs/dot2.png" },
+{ lat: 45.732715, lng: 21.208824, icon: "/PNGs/dot2.png" },
+{ lat: 45.732918, lng: 21.208874, icon: "/PNGs/dot2.png" },
+{ lat: 45.733137, lng: 21.208915, icon: "/PNGs/dot2.png" },
+{ lat: 45.733323, lng: 21.208951, icon: "/PNGs/dot2.png" },
+{ lat: 45.733552, lng: 21.208996, icon: "/PNGs/dot2.png" },
+{ lat: 45.733807, lng: 21.209039, icon: "/PNGs/dot2.png" },
+{ lat: 45.734004, lng: 21.209066, icon: "/PNGs/dot2.png" },
+{ lat: 45.734181, lng: 21.209113, icon: "/PNGs/dot2.png" },
+{ lat: 45.734364, lng: 21.209138, icon: "/PNGs/dot2.png" },
+{ lat: 45.734602, lng: 21.209173, icon: "/PNGs/dot2.png" },
+{ lat: 45.734886, lng: 21.209218, icon: "/PNGs/dot2.png" },
+{ lat: 45.735184, lng: 21.209277, icon: "/PNGs/dot2.png" },
+{ lat: 45.735412, lng: 21.209323, icon: "/PNGs/dot2.png" },
+{ lat: 45.735693, lng: 21.209374, icon: "/PNGs/dot2.png" },
+{ lat: 45.735937, lng: 21.209420, icon: "/PNGs/dot2.png" },
+{ lat: 45.736187, lng: 21.209465, icon: "/PNGs/dot2.png" },
+{ lat: 45.736673, lng: 21.209574, icon: "/PNGs/dot2.png" },
+{ lat: 45.737085, lng: 21.209601, icon: "/PNGs/dot2.png" },
+{ lat: 45.737426, lng: 21.209665, icon: "/PNGs/dot2.png" },
+{ lat: 45.737864, lng: 21.209745, icon: "/PNGs/dot2.png" },
+{ lat: 45.738242, lng: 21.209826, icon: "/PNGs/dot2.png" },
+{ lat: 45.738594, lng: 21.209896, icon: "/PNGs/dot2.png" },
+{ lat: 45.738934, lng: 21.209958, icon: "/PNGs/dot2.png" },
+{ lat: 45.739217, lng: 21.210030, icon: "/PNGs/dot2.png" },
+{ lat: 45.739466, lng: 21.210181, icon: "/PNGs/dot2.png" },
+{ lat: 45.739595, lng: 21.210307, icon: "/PNGs/dot2.png" },
+{ lat: 45.739765, lng: 21.210439, icon: "/PNGs/dot2.png" },
+{ lat: 45.739924, lng: 21.210548, icon: "/PNGs/dot2.png" },
+{ lat: 45.740055, lng: 21.210658, icon: "/PNGs/dot2.png" },
+{ lat: 45.740192, lng: 21.210756, icon: "/PNGs/dot2.png" },
+{ lat: 45.740348, lng: 21.210845, icon: "/PNGs/dot2.png" },
+{ lat: 45.740480, lng: 21.210972, icon: "/PNGs/dot2.png" },
+{ lat: 45.740617, lng: 21.211069, icon: "/PNGs/dot2.png" },
+{ lat: 45.740764, lng: 21.211187, icon: "/PNGs/dot2.png" },
+{ lat: 45.740924, lng: 21.211316, icon: "/PNGs/dot2.png" },
+{ lat: 45.741117, lng: 21.211457, icon: "/PNGs/dot2.png" },
+{ lat: 45.741229, lng: 21.211553, icon: "/PNGs/dot2.png" },
+{ lat: 45.741341, lng: 21.211632, icon: "/PNGs/dot2.png" },
+{ lat: 45.741434, lng: 21.211707, icon: "/PNGs/dot2.png" },
+{ lat: 45.741550, lng: 21.211799, icon: "/PNGs/dot2.png" },
+{ lat: 45.741654, lng: 21.211869, icon: "/PNGs/dot2.png" },
+{ lat: 45.741754, lng: 21.211952, icon: "/PNGs/dot2.png" },
+{ lat: 45.741891, lng: 21.212058, icon: "/PNGs/dot2.png" },
+{ lat: 45.742009, lng: 21.212138, icon: "/PNGs/dot2.png" },
+{ lat: 45.742136, lng: 21.212235, icon: "/PNGs/dot2.png" },
+{ lat: 45.742245, lng: 21.212326, icon: "/PNGs/dot2.png" },
+{ lat: 45.742368, lng: 21.212428, icon: "/PNGs/dot2.png" },
+{ lat: 45.742484, lng: 21.212532, icon: "/PNGs/dot2.png" },
+{ lat: 45.742590, lng: 21.212610, icon: "/PNGs/dot2.png" },
+{ lat: 45.742702, lng: 21.212708, icon: "/PNGs/dot2.png" },
+{ lat: 45.742786, lng: 21.212776, icon: "/PNGs/dot2.png" },
+{ lat: 45.742890, lng: 21.212869, icon: "/PNGs/dot2.png" },
+{ lat: 45.743007, lng: 21.212980, icon: "/PNGs/dot2.png" },
+{ lat: 45.743108, lng: 21.213062, icon: "/PNGs/dot2.png" },
+{ lat: 45.743204, lng: 21.213146, icon: "/PNGs/dot2.png" },
+{ lat: 45.743334, lng: 21.213255, icon: "/PNGs/dot2.png" },
+{ lat: 45.743451, lng: 21.213361, icon: "/PNGs/dot2.png" },
+{ lat: 45.743552, lng: 21.213454, icon: "/PNGs/dot2.png" },
+{ lat: 45.743675, lng: 21.213564, icon: "/PNGs/dot2.png" },
+{ lat: 45.743794, lng: 21.213668, icon: "/PNGs/dot2.png" },
+{ lat: 45.743917, lng: 21.213773, icon: "/PNGs/dot2.png" },
+{ lat: 45.744053, lng: 21.213920, icon: "/PNGs/dot2.png" },
+{ lat: 45.744181, lng: 21.214028, icon: "/PNGs/dot2.png" },
+{ lat: 45.744495, lng: 21.214328, icon: "/PNGs/dot2.png" },
+{ lat: 45.744676, lng: 21.214522, icon: "/PNGs/dot2.png" },
+{ lat: 45.744843, lng: 21.214677, icon: "/PNGs/dot2.png" },
+{ lat: 45.745054, lng: 21.214885, icon: "/PNGs/dot2.png" },
+{ lat: 45.745217, lng: 21.215052, icon: "/PNGs/dot2.png" },
+{ lat: 45.745517, lng: 21.215320, icon: "/PNGs/dot2.png" },
+{ lat: 45.745639, lng: 21.215472, icon: "/PNGs/dot2.png" },
+{ lat: 45.745778, lng: 21.215608, icon: "/PNGs/dot2.png" },
+{ lat: 45.745926, lng: 21.215741, icon: "/PNGs/dot2.png" },
+{ lat: 45.746057, lng: 21.215870, icon: "/PNGs/dot2.png" },
+{ lat: 45.746206, lng: 21.215999, icon: "/PNGs/dot2.png" },
+{ lat: 45.746351, lng: 21.216160, icon: "/PNGs/dot2.png" },
+{ lat: 45.746489, lng: 21.216312, icon: "/PNGs/dot2.png" },
+{ lat: 45.746593, lng: 21.216437, icon: "/PNGs/dot2.png" },
+{ lat: 45.746711, lng: 21.216470, icon: "/PNGs/dot2.png" },
+{ lat: 45.746978, lng: 21.216833, icon: "/PNGs/dot2.png" },
+{ lat: 45.747202, lng: 21.217068, icon: "/PNGs/dot2.png" },
+{ lat: 45.747447, lng: 21.217311, icon: "/PNGs/dot2.png" },
+{ lat: 45.747718, lng: 21.217604, icon: "/PNGs/dot2.png" },
+{ lat: 45.747993, lng: 21.217971, icon: "/PNGs/dot2.png" },
+{ lat: 45.748181, lng: 21.218278, icon: "/PNGs/dot2.png" },
+{ lat: 45.748419, lng: 21.218703, icon: "/PNGs/dot2.png" },
+{ lat: 45.748607, lng: 21.219025, icon: "/PNGs/dot2.png" },
+{ lat: 45.748779, lng: 21.219351, icon: "/PNGs/dot2.png" },
+{ lat: 45.749007, lng: 21.219715, icon: "/PNGs/dot2.png" },
+{ lat: 45.749158, lng: 21.220046, icon: "/PNGs/dot2.png" },
+{ lat: 45.749319, lng: 21.220330, icon: "/PNGs/dot2.png" },
+{ lat: 45.749499, lng: 21.220633, icon: "/PNGs/dot2.png" },
+{ lat: 45.749650, lng: 21.220884, icon: "/PNGs/dot2.png" },
+{ lat: 45.749795, lng: 21.221172, icon: "/PNGs/dot2.png" },
+{ lat: 45.749989, lng: 21.221506, icon: "/PNGs/dot2.png" },
+{ lat: 45.750153, lng: 21.221806, icon: "/PNGs/dot2.png" },
+{ lat: 45.750346, lng: 21.222192, icon: "/PNGs/dot2.png" },
+{ lat: 45.750531, lng: 21.222538, icon: "/PNGs/dot2.png" },
+{ lat: 45.750763, lng: 21.222967, icon: "/PNGs/dot2.png" },
+{ lat: 45.750965, lng: 21.223364, icon: "/PNGs/dot2.png" },
+{ lat: 45.751141, lng: 21.223793, icon: "/PNGs/dot2.png" },
+{ lat: 45.751238, lng: 21.224040, icon: "/PNGs/dot2.png" },
+{ lat: 45.751227, lng: 21.224378, icon: "/PNGs/dot2.png" },
+{ lat: 45.751149, lng: 21.224737, icon: "/PNGs/dot2.png" },
+{ lat: 45.750958, lng: 21.225011, icon: "/PNGs/dot2.png" },
+{ lat: 45.750752, lng: 21.225134, icon: "/PNGs/dot2.png" },
+{ lat: 45.750505, lng: 21.225242, icon: "/PNGs/dot2.png" },
+{ lat: 45.750187, lng: 21.225306, icon: "/PNGs/dot2.png" },
+{ lat: 45.749838, lng: 21.225440, icon: "/PNGs/dot2.png" },
+{ lat: 45.783254, lng: 21.219049, icon: "/PNGs/dot3.png" },
+//Route E2
+{ lat: 45.785067, lng: 21.218426, icon: "/PNGs/dot3.png" },
+{ lat: 45.784284, lng: 21.218732, icon: "/PNGs/dot3.png" },
+{ lat: 45.783145, lng: 21.219166, icon: "/PNGs/dot3.png" },
+{ lat: 45.781970, lng: 21.219523, icon: "/PNGs/dot3.png" },
+{ lat: 45.780689, lng: 21.219931, icon: "/PNGs/dot3.png" },
+{ lat: 45.779656, lng: 21.220148, icon: "/PNGs/dot3.png" },
+{ lat: 45.778997, lng: 21.220314, icon: "/PNGs/dot3.png" },
+{ lat: 45.778330, lng: 21.220505, icon: "/PNGs/dot3.png" },
+{ lat: 45.777538, lng: 21.220671, icon: "/PNGs/dot3.png" },
+{ lat: 45.776933, lng: 21.220914, icon: "/PNGs/dot3.png" },
+{ lat: 45.776310, lng: 21.221041, icon: "/PNGs/dot3.png" },
+{ lat: 45.775642, lng: 21.221143, icon: "/PNGs/dot3.png" },
+{ lat: 45.775046, lng: 21.221284, icon: "/PNGs/dot3.png" },
+{ lat: 45.774272, lng: 21.221577, icon: "/PNGs/dot3.png" },
+{ lat: 45.774210, lng: 21.221539, icon: "/PNGs/dot3.png" },
+{ lat: 45.773579, lng: 21.221937, icon: "/PNGs/dot3.png" },
+{ lat: 45.773040, lng: 21.222098, icon: "/PNGs/dot3.png" },
+{ lat: 45.772479, lng: 21.222270, icon: "/PNGs/dot3.png" },
+{ lat: 45.772067, lng: 21.222441, icon: "/PNGs/dot3.png" },
+{ lat: 45.771551, lng: 21.222581, icon: "/PNGs/dot3.png" },
+{ lat: 45.770907, lng: 21.222710, icon: "/PNGs/dot3.png" },
+{ lat: 45.770391, lng: 21.222946, icon: "/PNGs/dot3.png" },
+{ lat: 45.769815, lng: 21.223235, icon: "/PNGs/dot3.png" },
+{ lat: 45.769373, lng: 21.223461, icon: "/PNGs/dot3.png" },
+{ lat: 45.770623, lng: 21.223055, icon: "/PNGs/dot3.png" },
+{ lat: 45.769881, lng: 21.223378, icon: "/PNGs/dot3.png" },
+{ lat: 45.768962, lng: 21.223818, icon: "/PNGs/dot3.png" },
+{ lat: 45.768333, lng: 21.224153, icon: "/PNGs/dot3.png" },
+{ lat: 45.767558, lng: 21.224558, icon: "/PNGs/dot3.png" },
+{ lat: 45.766816, lng: 21.224962, icon: "/PNGs/dot3.png" },
+{ lat: 45.766308, lng: 21.225263, icon: "/PNGs/dot3.png" },
+{ lat: 45.765437, lng: 21.225436, icon: "/PNGs/dot3.png" },
+{ lat: 45.765066, lng: 21.225483, icon: "/PNGs/dot3.png" },
+{ lat: 45.764284, lng: 21.225575, icon: "/PNGs/dot3.png" },
+{ lat: 45.763421, lng: 21.225795, icon: "/PNGs/dot3.png" },
+{ lat: 45.762775, lng: 21.226153, icon: "/PNGs/dot3.png" },
+{ lat: 45.762017, lng: 21.226581, icon: "/PNGs/dot3.png" },
+{ lat: 45.761130, lng: 21.227009, icon: "/PNGs/dot3.png" },
+{ lat: 45.761017, lng: 21.227113, icon: "/PNGs/dot3.png" },
+{ lat: 45.760339, lng: 21.227494, icon: "/PNGs/dot3.png" },
+{ lat: 45.759537, lng: 21.227586, icon: "/PNGs/dot3.png" },
+{ lat: 45.759265, lng: 21.227790, icon: "/PNGs/dot3.png" },
+{ lat: 45.759309, lng: 21.228199, icon: "/PNGs/dot3.png" },
+{ lat: 45.759445, lng: 21.228716, icon: "/PNGs/dot3.png" },
+{ lat: 45.759439, lng: 21.229166, icon: "/PNGs/dot3.png" },
+{ lat: 45.759356, lng: 21.230013, icon: "/PNGs/dot3.png" },
+{ lat: 45.759225, lng: 21.230718, icon: "/PNGs/dot3.png" },
+{ lat: 45.758963, lng: 21.231370, icon: "/PNGs/dot3.png" },
+{ lat: 45.758642, lng: 21.231976, icon: "/PNGs/dot3.png" },
+{ lat: 45.758166, lng: 21.232339, icon: "/PNGs/dot3.png" },
+{ lat: 45.757764, lng: 21.232350, icon: "/PNGs/dot3.png" },
+{ lat: 45.757452, lng: 21.232310, icon: "/PNGs/dot3.png" },
+{ lat: 45.757077, lng: 21.232310, icon: "/PNGs/dot3.png" },
+{ lat: 45.756516, lng: 21.232232, icon: "/PNGs/dot3.png" },
+{ lat: 45.756062, lng: 21.232243, icon: "/PNGs/dot3.png" },
+{ lat: 45.755615, lng: 21.232793, icon: "/PNGs/dot3.png" },
+{ lat: 45.755376, lng: 21.233321, icon: "/PNGs/dot3.png" },
+{ lat: 45.754591, lng: 21.233046, icon: "/PNGs/dot3.png" },
+{ lat: 45.754289, lng: 21.232883, icon: "/PNGs/dot3.png" },
+{ lat: 45.753853, lng: 21.232675, icon: "/PNGs/dot3.png" },
+{ lat: 45.753459, lng: 21.232476, icon: "/PNGs/dot3.png" },
+{ lat: 45.753061, lng: 21.232449, icon: "/PNGs/dot3.png" },
+{ lat: 45.753300, lng: 21.231580, icon: "/PNGs/dot3.png" },
+{ lat: 45.753265, lng: 21.230978, icon: "/PNGs/dot3.png" },
+{ lat: 45.753293, lng: 21.230137, icon: "/PNGs/dot3.png" },
+{ lat: 45.753339, lng: 21.229389, icon: "/PNGs/dot3.png" },
+{ lat: 45.753454, lng: 21.228770, icon: "/PNGs/dot3.png" },
+{ lat: 45.753396, lng: 21.228017, icon: "/PNGs/dot3.png" },
+{ lat: 45.752960, lng: 21.227947, icon: "/PNGs/dot3.png" },
+{ lat: 45.752511, lng: 21.227743, icon: "/PNGs/dot3.png" },
+{ lat: 45.752221, lng: 21.227596, icon: "/PNGs/dot3.png" },
+{ lat: 45.751843, lng: 21.227420, icon: "/PNGs/dot3.png" },
+{ lat: 45.751260, lng: 21.227158, icon: "/PNGs/dot3.png" },
+{ lat: 45.750950, lng: 21.227007, icon: "/PNGs/dot3.png" },
+{ lat: 45.750631, lng: 21.226841, icon: "/PNGs/dot3.png" },
+{ lat: 45.750272, lng: 21.226637, icon: "/PNGs/dot3.png" },
+{ lat: 45.750032, lng: 21.226476, icon: "/PNGs/dot3.png" },
+{ lat: 45.749742, lng: 21.226278, icon: "/PNGs/dot3.png" },
+{ lat: 45.749477, lng: 21.226098, icon: "/PNGs/dot3.png" },
+{ lat: 45.749254, lng: 21.225937, icon: "/PNGs/dot3.png" },
+{ lat: 45.749010, lng: 21.225752, icon: "/PNGs/dot3.png" },
+{ lat: 45.748873, lng: 21.225701, icon: "/PNGs/dot3.png" },
+{ lat: 45.748661, lng: 21.225623, icon: "/PNGs/dot3.png" },
+{ lat: 45.748457, lng: 21.225575, icon: "/PNGs/dot3.png" },
+{ lat: 45.748081, lng: 21.225556, icon: "/PNGs/dot3.png" },
+{ lat: 45.753307, lng: 21.230137, icon: "/PNGs/dot3.png" },
+{ lat: 45.747758, lng: 21.226432, icon: "/PNGs/dot3.png" },
+{ lat: 45.747696, lng: 21.227491, icon: "/PNGs/dot3.png" },
+{ lat: 45.747703, lng: 21.228130, icon: "/PNGs/dot3.png" },
+{ lat: 45.747735, lng: 21.229037, icon: "/PNGs/dot3.png" },
+{ lat: 45.747785, lng: 21.229743, icon: "/PNGs/dot3.png" },
+{ lat: 45.747852, lng: 21.230393, icon: "/PNGs/dot3.png" },
+{ lat: 45.747930, lng: 21.231132, icon: "/PNGs/dot3.png" },
+{ lat: 45.748024, lng: 21.231743, icon: "/PNGs/dot3.png" },
+{ lat: 45.748063, lng: 21.232550, icon: "/PNGs/dot3.png" },
+{ lat: 45.748161, lng: 21.233177, icon: "/PNGs/dot3.png" },
+{ lat: 45.748278, lng: 21.233894, icon: "/PNGs/dot3.png" },
+{ lat: 45.748391, lng: 21.234466, icon: "/PNGs/dot3.png" },
+{ lat: 45.748520, lng: 21.235082, icon: "/PNGs/dot3.png" },
+{ lat: 45.748333, lng: 21.235429, icon: "/PNGs/dot3.png" },
+{ lat: 45.747891, lng: 21.235384, icon: "/PNGs/dot3.png" },
+{ lat: 45.747516, lng: 21.235356, icon: "/PNGs/dot3.png" },
+{ lat: 45.747062, lng: 21.235362, icon: "/PNGs/dot3.png" },
+{ lat: 45.746750, lng: 21.235429, icon: "/PNGs/dot3.png" },
+{ lat: 45.746406, lng: 21.235547, icon: "/PNGs/dot3.png" },
+{ lat: 45.745964, lng: 21.235698, icon: "/PNGs/dot3.png" },
+{ lat: 45.745518, lng: 21.235900, icon: "/PNGs/dot3.png" },
+{ lat: 45.745088, lng: 21.236113, icon: "/PNGs/dot3.png" },
+{ lat: 45.744752, lng: 21.236303, icon: "/PNGs/dot3.png" },
+{ lat: 45.744463, lng: 21.236477, icon: "/PNGs/dot3.png" },
+{ lat: 45.743911, lng: 21.236852, icon: "/PNGs/dot3.png" },
+{ lat: 45.743450, lng: 21.237183, icon: "/PNGs/dot3.png" },
+{ lat: 45.742997, lng: 21.237491, icon: "/PNGs/dot3.png" },
+{ lat: 45.742696, lng: 21.237720, icon: "/PNGs/dot3.png" },
+{ lat: 45.742371, lng: 21.237972, icon: "/PNGs/dot3.png" },
+{ lat: 45.741941, lng: 21.238275, icon: "/PNGs/dot3.png" },
+{ lat: 45.741648, lng: 21.238488, icon: "/PNGs/dot3.png" },
+{ lat: 45.741190, lng: 21.238785, icon: "/PNGs/dot3.png" },
+{ lat: 45.740819, lng: 21.239065, icon: "/PNGs/dot3.png" },
+{ lat: 45.740451, lng: 21.239300, icon: "/PNGs/dot3.png" },
+{ lat: 45.740006, lng: 21.239703, icon: "/PNGs/dot3.png" },
+{ lat: 45.739517, lng: 21.239922, icon: "/PNGs/dot3.png" },
+{ lat: 45.739153, lng: 21.240174, icon: "/PNGs/dot3.png" },
+{ lat: 45.738778, lng: 21.240415, icon: "/PNGs/dot3.png" },
+{ lat: 45.738364, lng: 21.240947, icon: "/PNGs/dot3.png" },
+{ lat: 45.738258, lng: 21.241810, icon: "/PNGs/dot3.png" },
+{ lat: 45.738055, lng: 21.242174, icon: "/PNGs/dot3.png" },
+{ lat: 45.737969, lng: 21.243053, icon: "/PNGs/dot3.png" },
+{ lat: 45.737875, lng: 21.244011, icon: "/PNGs/dot3.png" },
+{ lat: 45.737773, lng: 21.244745, icon: "/PNGs/dot3.png" },
+{ lat: 45.737672, lng: 21.245384, icon: "/PNGs/dot3.png" },
+{ lat: 45.737593, lng: 21.246168, icon: "/PNGs/dot3.png" },
+{ lat: 45.737500, lng: 21.247008, icon: "/PNGs/dot3.png" },
+{ lat: 45.737398, lng: 21.247804, icon: "/PNGs/dot3.png" },
+{ lat: 45.737300, lng: 21.248476, icon: "/PNGs/dot3.png" },
+{ lat: 45.737206, lng: 21.249154, icon: "/PNGs/dot3.png" },
+{ lat: 45.737128, lng: 21.249944, icon: "/PNGs/dot3.png" },
+{ lat: 45.736956, lng: 21.250263, icon: "/PNGs/dot3.png" },
+{ lat: 45.736616, lng: 21.250056, icon: "/PNGs/dot3.png" },
+{ lat: 45.736260, lng: 21.249843, icon: "/PNGs/dot3.png" },
+{ lat: 45.735865, lng: 21.249596, icon: "/PNGs/dot3.png" },
+{ lat: 45.735576, lng: 21.249440, icon: "/PNGs/dot3.png" },
+{ lat: 45.735427, lng: 21.249360, icon: "/PNGs/dot3.png" },
+{ lat: 45.735241, lng: 21.249260, icon: "/PNGs/dot3.png" },
+{ lat: 45.735129, lng: 21.249180, icon: "/PNGs/dot3.png" },
+{ lat: 45.735052, lng: 21.249138, icon: "/PNGs/dot3.png" },
+{ lat: 45.734901, lng: 21.249049, icon: "/PNGs/dot3.png" },
+{ lat: 45.734797, lng: 21.248986, icon: "/PNGs/dot3.png" },
+{ lat: 45.734671, lng: 21.248907, icon: "/PNGs/dot3.png" },
+{ lat: 45.734557, lng: 21.248840, icon: "/PNGs/dot3.png" },
+{ lat: 45.734447, lng: 21.248776, icon: "/PNGs/dot3.png" },
+{ lat: 45.734308, lng: 21.248696, icon: "/PNGs/dot3.png" },
+{ lat: 45.734183, lng: 21.248618, icon: "/PNGs/dot3.png" },
+{ lat: 45.734017, lng: 21.248511, icon: "/PNGs/dot3.png" },
+{ lat: 45.733818, lng: 21.248398, icon: "/PNGs/dot3.png" },
+{ lat: 45.733658, lng: 21.248313, icon: "/PNGs/dot3.png" },
+{ lat: 45.733458, lng: 21.248186, icon: "/PNGs/dot3.png" },
+{ lat: 45.733333, lng: 21.248099, icon: "/PNGs/dot3.png" },
+{ lat: 45.733178, lng: 21.248014, icon: "/PNGs/dot3.png" },
+{ lat: 45.733029, lng: 21.247934, icon: "/PNGs/dot3.png" },
+{ lat: 45.732838, lng: 21.247826, icon: "/PNGs/dot3.png" },
+{ lat: 45.732673, lng: 21.247736, icon: "/PNGs/dot3.png" },
+{ lat: 45.732481, lng: 21.247644, icon: "/PNGs/dot3.png" },
+{ lat: 45.732310, lng: 21.247531, icon: "/PNGs/dot3.png" },
+{ lat: 45.732180, lng: 21.247453, icon: "/PNGs/dot3.png" },
+{ lat: 45.732022, lng: 21.247369, icon: "/PNGs/dot3.png" },
+{ lat: 45.731897, lng: 21.247296, icon: "/PNGs/dot3.png" },
+{ lat: 45.731597, lng: 21.247067, icon: "/PNGs/dot3.png" }
+
+]
+//Markers for rental of bikes && scooters
+const rentalLocations = [
+{ lat: 45.73268, lng: 21.2090269, type: "Bike Rental", icon: "/PNGs/biclpin.png" },
+{ lat: 45.7580698, lng: 21.2340634, type: "Bike Rental", icon: "/PNGs/biclpin.png" },
+{ lat: 45.7606774, lng: 21.2491504, type: "Bike Rental", icon: "/PNGs/biclpin.png" },
+{ lat: 45.7603917, lng: 21.218594, type: "Bike Rental", icon: "/PNGs/biclpin.png" },
+{ lat: 45.7563934, lng: 21.2232265, type: "Bike Rental", icon: "/PNGs/biclpin.png" },
+{ lat: 45.7481261, lng: 21.2398448, type: "Scooter Rental", icon: "/PNGs/scooterpin.png" },
+{ lat: 45.7471195, lng: 21.2316152, type: "Scooter Rental", icon: "/PNGs/scooterpin.png" },
+];
+
+    const myLatLng = { lat: 45.766092, lng: 21.2220572 };
+    const map = new google.maps.Map(document.getElementById("map"), {
+        zoom: 13,
+        center: myLatLng,
+        scrollwheel: false
+    });
+
+    const overlay = new google.maps.OverlayView();
+overlay.onAdd = function() {
+  // Add the popup to the overlay
+  this.getPanes().floatPane.appendChild(popup);
+};
+overlay.draw = function() {
+  // Positioning code will go here, but we'll define it in the mouseover listener
+};
+overlay.setMap(map);
+    
+    const popup = document.createElement('div');
+    popup.style.display = 'none'; // Start hidden
+    popup.style.position = 'absolute';
+    popup.style.zIndex = '1000';
+    document.body.appendChild(popup);
+
+    popup.style.pointerEvents = "none";
+    // For POIs
+    pinsPOIs.forEach(poi => {
+    const pinPosition = new google.maps.LatLng(poi.lat, poi.lng);
+    const marker = new google.maps.Marker({
+        position: pinPosition,
+        map: map,
+        title: poi.title,
+        icon: poi.icon,
+    });
+    // For Bus Routes
+    dotMarkers.forEach(poi => {
+    const pinPosition = new google.maps.LatLng(poi.lat, poi.lng);
+    new google.maps.Marker({
+        position: pinPosition,
+        map: map,
+        icon: poi.icon
+    });
+});
+//For rental locations
+    rentalLocations.forEach(location => {
+    const pinPosition = new google.maps.LatLng(location.lat, location.lng);
+    const marker = new google.maps.Marker({
+        position: pinPosition,
+        map: map,
+        icon: location.icon,
+        title: location.type // This will be shown on hover
+    });
+});
+    
+    marker.addListener('mouseover', () => {
+        const img = document.createElement('img');
+        img.src = poi.imageUrl;
+        img.alt = poi.title;
+        img.style.width = '550px'; // Use a fixed width
+        img.style.height = 'auto';
+        popup.innerHTML = ''; // Clear previous content
+        popup.appendChild(img);
+        popup.style.display = 'block'; // Display the popup
+
+        // Use the overlay's projection to calculate the correct position
+        const projection = overlay.getProjection();
+        const pixelPosition = projection.fromLatLngToDivPixel(marker.getPosition());
+
+        // Center the popup over the marker
+        popup.style.left = (pixelPosition.x - popup.offsetWidth / 2) + 'px';
+        popup.style.top = (pixelPosition.y - popup.offsetHeight) + 'px';
+    });
+
+    marker.addListener('mouseout', () => {
+        // Hide the popup after a short delay (e.g., 500 milliseconds)
+
+        popupTimer = setTimeout(() => {
+            popup.style.display = 'none';
+        }, 500);
+    });
+
+    // If the mouse re-enters the marker area, cancel the hide timer
+    marker.addListener('mouseover', () => {
+        clearTimeout(popupTimer);
+    });
+});
+    const styleControl = document.getElementById("style-selector-control");
+
+    map.controls[google.maps.ControlPosition.TOP_LEFT].push(styleControl);
+
+    const styleSelector = document.getElementById("style-selector");
+
+    //Map customization
+    map.setOptions({ styles: [
+    { elementType: "geometry", stylers: [{ color: "#ebe3cd" }] },
+    { elementType: "labels.text.stroke", stylers: [{ color: "#ebe3cd" }] },
+    { elementType: "labels.text.fill", stylers: [{ color: "#523735" }] },
+    {
+      featureType: "administrative.locality",
+      elementType: "labels.text.fill",
+      stylers: [{ color: "#d59563" }],
+    },
+    {
+      featureType: "poi",
+      elementType: "labels.text.fill",
+      stylers: [{ color: "#d59563" }],
+    },
+    {
+      featureType: "poi.park",
+      elementType: "geometry",
+      stylers: [{ color: "#a5b076" }],
+    },
+    {
+      featureType: "poi.park",
+      elementType: "labels.text.fill",
+      stylers: [{ color: "#447530" }],
+    },
+    {
+      featureType: "road",
+      elementType: "geometry",
+      stylers: [{ color: "#f3d19c" }],
+    },
+    {
+      featureType: "road",
+      elementType: "geometry.stroke",
+      stylers: [{ color: "#f9bc8f" }],
+    },
+    {
+      featureType: "road",
+      elementType: "labels.text.fill",
+      stylers: [{ color: "#806b63" }],
+    },
+    {
+      featureType: "road.highway",
+      elementType: "geometry",
+      stylers: [{ color: "#fdda77" }],
+    },
+    {
+      featureType: "road.highway",
+      elementType: "geometry.stroke",
+      stylers: [{ color: "#e9bc62" }],
+    },
+    {
+      featureType: "road.highway",
+      elementType: "labels.text.fill",
+      stylers: [{ color: "#616161" }],
+    },
+    {
+      featureType: "transit",
+      elementType: "geometry",
+      stylers: [{ color: "#d8d2c4" }],
+    },
+    {
+      featureType: "transit.station",
+      elementType: "labels.text.fill",
+      stylers: [{ color: "#d59563" }],
+    },
+    {
+      featureType: "water",
+      elementType: "geometry",
+      stylers: [{ color: "#b9d3c2" }],
+    },
+    {
+      featureType: "water",
+      elementType: "labels.text.fill",
+      stylers: [{ color: "#92998d" }],
+    },
+    {
+      featureType: "water",
+      elementType: "labels.text.stroke",
+      stylers: [{ color: "#b9d3c2" }],
+    },
+    {
+      featureType: "poi",
+      stylers: [{ visibility: "off" }],
+    },
+    {
+      featureType: "transit",
+      elementType: "labels.icon",
+      stylers: [{ visibility: "off" }],
+    }
+  ] });}
+
+function fromLatLngToPoint(latLng, map) {
+    const topRight = map.getProjection().fromLatLngToPoint(map.getBounds().getNorthEast());
+    const bottomLeft = map.getProjection().fromLatLngToPoint(map.getBounds().getSouthWest());
+    const scale = Math.pow(2, map.getZoom());
+    const worldPoint = map.getProjection().fromLatLngToPoint(latLng);
+    return new google.maps.Point((worldPoint.x - bottomLeft.x) * scale, (worldPoint.y - topRight.y) * scale);
+}
+
+window.initMap = initMap;
+</script>
+</html>

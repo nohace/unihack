@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="fade_in.js"></script>
+
+    <meta charmyLet="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bee Connected</title>
+    <link rel="stylesheet" href="Style/Style.CSS">
+    <link rel="stylesheet" href="Style/CulturalStyle.CSS">
+    <link rel="stylesheet" href="Style/fade_in.CSS">
+    <style>
+        #map {
+            height: 100%;
+      }
+    </style>
+</head>
+
+<body>
+
+  <header>
+    <a href="Index.HTML">
+      <img src="PNGs/logodone.png" id="logo" style="float:center;width:470px;height: 100px;" >
+    </a>
+  </header>
+
+  <nav>
+      
+      <a href="Contact.html" id="contactButton">Contact us</a>
+      
+  </nav>
+
+  
+
+  <section>
+
+    <h2 id="text">Select your preferred track</h2>
+    <a class="preference_buttons" id="culturalStyle" href="Cultural.html">Cultural</a>
+    <a class="preference_buttons" href="Fun.html">Fun</a>
+    <a class="preference_buttons" href="NightLife.html">Night Life</a>
+
+</section>
+
+<section>
+    <div class="container">
+        <div id="map"></div>
+    </div>
+    
+</section>
+    <footer>
+        <p>&copy; 2023 Bee Connected. All rights reserved.</p>
+    </footer>
+
+</body>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDZncOmEczOQkx0fwoT65wNHUxgiBJIqp8&libraries=places&callback=initMap" async defer></script>
+<script>
+
+function initMap() {
+  const pinsPOIs = [
+        {lat: 45.7511933, lng: 21.2244686, title: "The Orthodox Cathedral", icon: "/PNGs/blackpinsmall.png", imageUrl: "/PNGs/CatedralaPopUp.png"},
+        {lat: 45.7540329, lng: 21.2257926, title: "The Romanian National Opera", icon: "/PNGs/blackpinsmall.png", imageUrl: "PNGs/OperaPopUp.png"},
+        {lat: 45.7568707, lng: 21.2338377, title: "Theresia Bastion", icon: "/PNGs/blackpinsmall.png", imageUrl: "PNGs/BastionPopUp.png" },
+        {lat:45.743198, lng: 21.224217, title: "The Museum of the Communist Consumer", icon: "/PNGs/blackpinsmall.png", imageUrl: "PNGs/CommunistMuseumPopUp.png" },
+        {lat: 45.7574221,lng: 21.2298894,title: "The Art Museum", icon: "/PNGs/blackpinsmall.png", imageUrl: "PNGs/ArtMuseumPopUp.png" },
+        {lat: 45.7771326, lng: 21.2661333,  title: "The Banat Village Museum", icon: "/PNGs/blackpinsmall.png", imageUrl: "PNGs/BanatVillageMuseumPopUp.png" },
+        {lat: 45.782904, lng: 21.219310, title: "bus2", icon: "/PNGs/dot.png"},
+        {lat: 45.783628, lng: 21.219091, title: "bus2", icon: "/PNGs/dot.png"},
+        {lat: 45.781867, lng: 21.219580, title: "bus2", icon: "/PNGs/dot.png"},
+        {lat: 45.780697, lng: 21.219869, title: "bus2", icon: "/PNGs/dot.png"},
+        
+    ];
+
+
+    const myLatLng = { lat: 45.766092, lng: 21.2220572 };
+    const map = new google.maps.Map(document.getElementById("map"), {
+        zoom: 13,
+        center: myLatLng,
+        scrollwheel: false
+    });
+
+    const overlay = new google.maps.OverlayView();
+overlay.onAdd = function() {
+    this.getPanes().floatPane.appendChild(popup);
+};
+overlay.draw = function() {
+};
+overlay.setMap(map);
+    
+    const popup = document.createElement('div');
+    popup.style.display = 'none'; // Start hidden
+    popup.style.position = 'absolute';
+    popup.style.zIndex = '1000';
+    document.body.appendChild(popup);
+
+    popup.style.pointerEvents = "none";
+
+    pinsPOIs.forEach(poi => {
+    const pinPosition = new google.maps.LatLng(poi.lat, poi.lng);
+    const marker = new google.maps.Marker({
+        position: pinPosition,
+        map: map,
+        title: poi.title,
+        icon: poi.icon,
+    });
+
+
+    marker.addListener('mouseover', () => {
+        const img = document.createElement('img');
+        img.src = poi.imageUrl;
+        img.alt = poi.title;
+        img.style.width = '550px';
+        img.style.height = 'auto';
+        popup.innerHTML = ''; // Clear previous content
+        popup.appendChild(img);
+        popup.style.display = 'block'; // Display the popup
+
+        // Use the overlay's projection to calculate the correct position
+        const projection = overlay.getProjection();
+        const pixelPosition = projection.fromLatLngToDivPixel(marker.getPosition());
+
+        // Center the popup over the marker
+        popup.style.left = (pixelPosition.x - popup.offsetWidth / 2) + 'px';
+        popup.style.top = (pixelPosition.y - popup.offsetHeight) + 'px';
+    });
+
+    marker.addListener('mouseout', () => {
+        // Hide the popup after a short delay
+
+        popupTimer = setTimeout(() => {
+            popup.style.display = 'none';
+        }, 500);
+    });
+
+    // If the mouse re-enters the marker area, cancel the hide timer
+    marker.addListener('mouseover', () => {
+        clearTimeout(popupTimer);
+    });
+});
+    const styleControl = document.getElementById("style-selector-control");
+
+    map.controls[google.maps.ControlPosition.TOP_LEFT].push(styleControl);
+
+    const styleSelector = document.getElementById("style-selector");
+
+    map.setOptions({ styles: [
+    { elementType: "geometry", stylers: [{ color: "#ebe3cd" }] },
+    { elementType: "labels.text.stroke", stylers: [{ color: "#ebe3cd" }] },
+    { elementType: "labels.text.fill", stylers: [{ color: "#523735" }] },
+    {
+      featureType: "administrative.locality",
+      elementType: "labels.text.fill",
+      stylers: [{ color: "#d59563" }],
+    },
+    {
+      featureType: "poi",
+      elementType: "labels.text.fill",
+      stylers: [{ color: "#d59563" }],
+    },
+    {
+      featureType: "poi.park",
+      elementType: "geometry",
+      stylers: [{ color: "#a5b076" }],
+    },
+    {
+      featureType: "poi.park",
+      elementType: "labels.text.fill",
+      stylers: [{ color: "#447530" }],
+    },
+    {
+      featureType: "road",
+      elementType: "geometry",
+      stylers: [{ color: "#f3d19c" }],
+    },
+    {
+      featureType: "road",
+      elementType: "geometry.stroke",
+      stylers: [{ color: "#f9bc8f" }],
+    },
+    {
+      featureType: "road",
+      elementType: "labels.text.fill",
+      stylers: [{ color: "#806b63" }],
+    },
+    {
+      featureType: "road.highway",
+      elementType: "geometry",
+      stylers: [{ color: "#fdda77" }],
+    },
+    {
+      featureType: "road.highway",
+      elementType: "geometry.stroke",
+      stylers: [{ color: "#e9bc62" }],
+    },
+    {
+      featureType: "road.highway",
+      elementType: "labels.text.fill",
+      stylers: [{ color: "#616161" }],
+    },
+    {
+      featureType: "transit",
+      elementType: "geometry",
+      stylers: [{ color: "#d8d2c4" }],
+    },
+    {
+      featureType: "transit.station",
+      elementType: "labels.text.fill",
+      stylers: [{ color: "#d59563" }],
+    },
+    {
+      featureType: "water",
+      elementType: "geometry",
+      stylers: [{ color: "#b9d3c2" }],
+    },
+    {
+      featureType: "water",
+      elementType: "labels.text.fill",
+      stylers: [{ color: "#92998d" }],
+    },
+    {
+      featureType: "water",
+      elementType: "labels.text.stroke",
+      stylers: [{ color: "#b9d3c2" }],
+    },
+    {
+      featureType: "poi",
+      stylers: [{ visibility: "off" }],
+    },
+    {
+      featureType: "transit",
+      elementType: "labels.icon",
+      stylers: [{ visibility: "off" }],
+    }
+  ] });}
+
+function fromLatLngToPoint(latLng, map) {
+    const topRight = map.getProjection().fromLatLngToPoint(map.getBounds().getNorthEast());
+    const bottomLeft = map.getProjection().fromLatLngToPoint(map.getBounds().getSouthWest());
+    const scale = Math.pow(2, map.getZoom());
+    const worldPoint = map.getProjection().fromLatLngToPoint(latLng);
+    return new google.maps.Point((worldPoint.x - bottomLeft.x) * scale, (worldPoint.y - topRight.y) * scale);
+}
+
+window.initMap = initMap;
+</script>
+</html>
